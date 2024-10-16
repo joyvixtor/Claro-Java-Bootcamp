@@ -4,6 +4,11 @@ public abstract class Conta {
     protected double saldo;
     protected Cliente cliente;
 
+    public Conta(String numeroDaAgencia, String numeroDaConta, Cliente cliente){
+        this.numeroDaAgencia = numeroDaAgencia;
+        this.numeroDaConta = numeroDaConta;
+        this.cliente = cliente;
+    }
 
 
     public String getNumeroDaAgencia(){
