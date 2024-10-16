@@ -4,6 +4,8 @@ public abstract class Conta {
     protected double saldo;
     protected Cliente cliente;
 
+
+
     public String getNumeroDaAgencia(){
         return numeroDaAgencia;
     }
@@ -20,13 +22,18 @@ public abstract class Conta {
         return cliente;
     }
 
-    public void sacar(int dinheiroParaSaque){
-        if(!(this.saldo - dinheiroParaSaque < 0)){
+    public void sacar(double dinheiroParaSaque){
+        if(this.saldo - dinheiroParaSaque < 0){
             System.out.println("Saldo insuficiente para completar o saque");
         } else{
             this.saldo = this.saldo - dinheiroParaSaque;
-            System.out.println("Seu saque d " + dinheiroParaSaque + " foi realizado com sucesso!");
+            System.out.println("Seu saque de " + dinheiroParaSaque + " foi realizado com sucesso!");
         }
+    }
+
+    public void depositar (double dinheiroParaDeposito){
+        this.saldo = this.saldo + dinheiroParaDeposito;
+        System.out.println("Seu depósito de " + dinheiroParaDeposito + " foi realizado com sucesso");
     }
 
 
