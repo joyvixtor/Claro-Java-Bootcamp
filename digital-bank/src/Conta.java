@@ -36,10 +36,20 @@ public abstract class Conta {
         }
     }
 
-    public void depositar (double dinheiroParaDeposito){
+    public void depositar(double dinheiroParaDeposito){
         this.saldo = this.saldo + dinheiroParaDeposito;
         System.out.println("Seu depósito de " + dinheiroParaDeposito + " foi realizado com sucesso");
     }
 
+    public void verExtrato(){
+        System.err.println("Você tem: " + this.saldo + " para uso na conta");
+    }
+
+    public void transferir(Conta contaReceptor, double dinheiroTransferencia){
+        sacar(dinheiroTransferencia);
+        contaReceptor.depositar(dinheiroTransferencia);
+
+        System.out.println("Sua transferência foi realizada com sucesso!");
+    }
 
 }

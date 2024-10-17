@@ -6,8 +6,8 @@ public class Banco {
     private static final Map<String, Conta> LISTA_CONTAS = new HashMap<>();
     public static void main(String[] args) throws Exception {
 
-        RandomNumber randomNumberAgency = new RandomNumber(7);
-        RandomNumber randomNumberAccount = new RandomNumber(1);
+        RandomNumber randomNumberAgency = new RandomNumber(1);
+        RandomNumber randomNumberAccount = new RandomNumber(7);
 
 
         System.out.println("Bem vindo ao sistema de comunicação bancária! Escolha o serviço que deseja realizar:");
@@ -15,6 +15,7 @@ public class Banco {
         System.err.println("2 - Saque");
         System.out.println("3 - Depósito");
         System.err.println("4 - Verificar extrato");
+        System.err.println("5 - Fazer uma transferência");
         System.out.println("Sair - encerrar atendimento");
 
         Scanner scanner = new Scanner(System.in);
@@ -44,40 +45,41 @@ public class Banco {
                     System.out.println("Insira um novo comando");
                     break;
                 case "2":
-                    System.err.println("Digite seu número de agência: ");
-                    numberAggency = scanner.nextLine();
-                    System.err.println("Digite seu número de conta");
-                    numberAccount = scanner.nextLine();
-
-                    Conta contaCliente = lookingAccount((numberAggency + numberAccount), LISTA_CONTAS);
+                    Conta contaCliente = lookingAccount(LISTA_CONTAS);
                     if(contaCliente != null){
                         System.err.println("Digite o valor que deseja sacar");
-                        int dinheiroSaque = scanner.nextInt();
+                        Double dinheiroSaque = scanner.nextDouble();
                         contaCliente.sacar(dinheiroSaque);
                     } else{
                         System.err.println("Conta bancária não existe");
                     }
                     break;
                 case "3":
-                    System.err.println("Digite seu número de agência: ");
-                    numberAggency = scanner.nextLine();
-                    System.err.println("Digite seu número de conta");
-                    numberAccount = scanner.nextLine();
-
-                    contaCliente = lookingAccount((numberAggency + numberAccount), LISTA_CONTAS);
+                    contaCliente = lookingAccount(LISTA_CONTAS);
                     if(contaCliente != null){
                         System.err.println("Digite o valor que deseja depositar");
-                        int dinheiroDeposito = scanner.nextInt();
+                        Double dinheiroDeposito = scanner.nextDouble();
                         contaCliente.depositar(dinheiroDeposito);
                     } else{
                         System.err.println("Conta bancária não existe");
                     }
                     break;
                 case "4":
-                    System.err.println("Digite seu número de agência");
-                    numberAggency = scanner.nextLine();
-                    System.err.println("Digite seu número de conta");
-                    numberAccount = scanner.nextLine();
+                    contaCliente = lookingAccount(LISTA_CONTAS);
+                    if(contaCliente != null){
+                        contaCliente.verExtrato();
+                    }else{
+                        System.err.println("Conta bancária não existe");
+                    }
+                case "5":
+                    Conta contaEmissor = lookingAccount(LISTA_CONTAS);
+                    Conta contaReceptor = lookingAccount(LISTA_CONTAS);
+
+                    System.err.println("Qual o valor da transferência?");
+                    double dinheiroParaTransferencia = scanner.nextDouble();
+
+                    contaEmissor.transferir(contaReceptor, dinheiroParaTransferencia);
+                    break;
                 case "Sair":
                     System.err.println("Saindo do sistema de comunicação bancária");
                     scanner.close();
@@ -86,9 +88,18 @@ public class Banco {
                     
             }
         }
+        scanner.close();
     }
 
-    private static Conta lookingAccount(String key, Map<String, Conta> listaContas){
-        return listaContas.get(key);
+    private static Conta lookingAccount(Map<String, Conta> listaContas){
+        Scanner scanner = new Scanner(System.in);
+
+        System.err.println("Digite o número da agência: ");
+        String numberAggency = scanner.nextLine();
+        System.err.println("Digite o número da conta");
+        String numberAccount = scanner.nextLine();
+
+        String keyAccount = (numberAggency + numberAccount);
+        return listaContas.get(keyAccount);
     }
 }
