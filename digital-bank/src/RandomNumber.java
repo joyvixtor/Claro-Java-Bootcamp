@@ -23,9 +23,9 @@ public class RandomNumber {
                 } while (verifyAccountNumber(number));
                 UNIQUE_NUMBERS.add(number);
                 return number;
-            case 5:
+            case 1:
                 do {
-                    number = 10000 + random.nextInt(90000);
+                    number = 1 + random.nextInt(10);
                 } while(verifyAccountNumber(number));
                 UNIQUE_NUMBERS.add(number);
                 return number;
