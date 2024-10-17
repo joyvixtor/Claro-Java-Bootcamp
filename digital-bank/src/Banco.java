@@ -58,6 +58,26 @@ public class Banco {
                         System.err.println("Conta bancária não existe");
                     }
                     break;
+                case "3":
+                    System.err.println("Digite seu número de agência: ");
+                    numberAggency = scanner.nextLine();
+                    System.err.println("Digite seu número de conta");
+                    numberAccount = scanner.nextLine();
+
+                    contaCliente = lookingAccount((numberAggency + numberAccount), LISTA_CONTAS);
+                    if(contaCliente != null){
+                        System.err.println("Digite o valor que deseja depositar");
+                        int dinheiroDeposito = scanner.nextInt();
+                        contaCliente.depositar(dinheiroDeposito);
+                    } else{
+                        System.err.println("Conta bancária não existe");
+                    }
+                    break;
+                case "4":
+                    System.err.println("Digite seu número de agência");
+                    numberAggency = scanner.nextLine();
+                    System.err.println("Digite seu número de conta");
+                    numberAccount = scanner.nextLine();
                 case "Sair":
                     System.err.println("Saindo do sistema de comunicação bancária");
                     scanner.close();
